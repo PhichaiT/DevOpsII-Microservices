@@ -9,7 +9,7 @@ def item_name():
     conn = sqlite3.connect(db_folder)
     sql = """
         SELECT name, category , price, instock
-        FROM itemname 
+        FROM item
         ORDER BY name
     """
     cursor = conn.execute(sql)
@@ -50,13 +50,13 @@ def find_itemname(item):
     conn.close()
     return data
 
-def item_name_add(item,passwd,name):
+def item_name_add(name,category,price,instock):
     conn = sqlite3.connect(db_folder)
     sql = """
-        INSERT INTO itemname(item,password,name)
-        VALUES(?,?,?)
+        INSERT INTO item(name,category,price,instock)
+        VALUES(?,?,?,?)
     """
-    val = (item,passwd,name)
+    val = (name,category,price,instock)
     cursor = conn.execute(sql, val)
     conn.commit()
     conn.close()

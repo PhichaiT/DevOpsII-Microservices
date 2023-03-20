@@ -13,10 +13,10 @@ app = Flask(__name__)
 #   data = [x for x in username if x["user"]==user]
 #   return data
 
-@app.route('/username', methods=['GET'])
-def user():
-    _user = us.user_name()
-    return jsonify(_user)
+@app.route('/item', methods=['GET'])
+def item():
+    _item = us.item_name()
+    return jsonify(_item)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5005, debug=True) #127.0.0.1
