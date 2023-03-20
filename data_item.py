@@ -8,7 +8,7 @@ def item_name():
     data = []
     conn = sqlite3.connect(db_folder)
     sql = """
-        SELECT item, password , name
+        SELECT name, category , price, instock
         FROM itemname 
         ORDER BY name
     """
@@ -17,9 +17,10 @@ def item_name():
 
     for row in rows:
         record = {
-            'item': row[0],
-            'password': row[1],
-            'name': row[2]
+            'name': row[0],
+            'category': row[1],
+            'price': row[2],
+            'instock':row[3]
             }
         data.append(record)
     
