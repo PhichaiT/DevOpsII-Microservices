@@ -9,15 +9,16 @@ app = Flask(__name__)
 @app.route('/update', methods=['PUT'])
 def update():
     # id = request.form.get('id')
-    user = request.form.get('username')
-    passwd = request.form.get('password')
     name = request.form.get('name')
+    category = request.form.get('category')
+    price = request.form.get('price')
+    instock = request.form.get('instock')
 
-    _user = us.user_name()
-    data = [x for x in _user if x["user"]==user]
+    _user = us.item_name()
+    data = [x for x in _user if x["name"]==name]
 
     if data:
-        us.update_user(user,passwd,name)
+        us.update_item(name,category,price,instock)
         return jsonify({'message': 'Update Successfully'}), 200
     else:
         return jsonify({'message': 'Fail to update.'}), 401

@@ -32,18 +32,19 @@ def find_itemname(item):
     data = []
     conn = sqlite3.connect(db_folder)
     sql = """
-        SELECT item, password , name
-        FROM itemname 
-        WHERE item=?
+        SELECT name, category , price, instock
+        FROM item
+        WHERE name=?
     """
     val = (item,)
     cursor = conn.execute(sql,val)
     rows = cursor.fetchone()
 
     record = {
-        'item': rows[0],
-        'password': rows[1],
-        'name': rows[2]
+        'name': rows[0],
+        'category': rows[1],
+        'price': rows[2],
+        'instock':rows[3]
         }
     data.append(record)
     
@@ -65,8 +66,8 @@ def item_name_add(name,category,price,instock):
 def item_delete(item):
     conn = sqlite3.connect(db_folder)
     sql = """
-        DELETE FROM itemname
-        WHERE item=?
+        DELETE FROM item
+        WHERE name=?
     """
     val = (item,)
     cursor = conn.execute(sql, val)
@@ -74,14 +75,14 @@ def item_delete(item):
     conn.close()
     return "Deleted successfully"
 
-def update_item(item,passwd,name):
+def update_item(name,category,price,instock):
     conn = sqlite3.connect(db_folder)
     sql = """
-        UPDATE itemname
-        SET password=? , name=?
-        WHERE item=?
+        UPDATE item
+        SET category=? , price=?, instock=?
+        WHERE name=?
     """
-    val = (passwd,name,item)
+    val = (category,price,instock,name)
     cursor = conn.execute(sql, val)
     conn.commit()
     conn.close()

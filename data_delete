@@ -9,18 +9,15 @@ app = Flask(__name__)
 # username = us.user_name()
 
 # Find data in json
-def _find_user(user, username):
-    data = [x for x in username if x["user"]==user]
-    return data
 
 @app.route('/delete', methods=['DELETE'])
 def delete():
-    user = request.form.get('username')
+    name = request.form.get('name')
     # return jsonify(user)
-    _user = us.find_username(user)
-    data = [x for x in _user if x["user"]==user]
+    _user = us.find_itemname(name)
+    data = [x for x in _user if x["name"]==name]
     if data:
-        us.user_delete(user)
+        us.item_delete(name)
         return jsonify({'message': 'Delete successfully.'}), 200
     else:
         return jsonify({'message': 'Cannot delete user.'}), 401
